@@ -15,7 +15,7 @@ class DBClient {
    * A constructor of DBClient.
    * @constructor
    */
-  constructor() {
+  constructor () {
     const host = process.env.DB_HOST || 'localhost';
     const port = process.env.DB_PORT || '27017';
     const database = process.env.DB_DATABASE || 'files_manager';
@@ -28,7 +28,7 @@ class DBClient {
    * Checks if the database connection is alive.
    * @returns {boolean} True if the connection is alive, false otherwise.
    */
-  isAlive() {
+  isAlive () {
     return this.client.isConnected();
   }
 
@@ -37,7 +37,7 @@ class DBClient {
    * @async
    * @returns {Promise<number>} The total number of users.
    */
-  async nbUsers() {
+  async nbUsers () {
     try {
       const usersCollection = this.client.db().collection('users');
       const usersCount = await usersCollection.countDocuments();
@@ -53,7 +53,7 @@ class DBClient {
    * @async
    * @returns {Promise<number>} The total number of files.
    */
-  async nbFiles() {
+  async nbFiles () {
     try {
       const filesCollection = this.client.db().collection('files');
       const filesCount = await filesCollection.countDocuments();
