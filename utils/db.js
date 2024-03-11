@@ -17,7 +17,7 @@ class DBClient {
    */
   constructor() {
     const host = process.env.DB_HOST || 'localhost';
-    const port = process.env.DB_PORT || 27017;
+    const port = process.env.DB_PORT || '27017';
     const database = process.env.DB_DATABASE || 'files_manager';
     const url = `mongodb://${host}:${port}/${database}`;
     this.client = new MongoClient(url);
@@ -38,8 +38,14 @@ class DBClient {
    * @returns {Promise<number>} The total number of users.
    */
   async nbUsers() {
-    const totalUsers = await this.client.collection('users').countDocuments();
-    return totalUsers;
+    try {
+      const usersCollection = this.client.db().collection('users');
+      const usersCount = await usersCollection.countDocuments();
+      return usersCount;
+    } catch (error) {
+      console.error('Error counting users:', error);
+      throw error;
+    }
   }
 
   /**
@@ -48,8 +54,14 @@ class DBClient {
    * @returns {Promise<number>} The total number of files.
    */
   async nbFiles() {
-    const filesCount = await this.client.collection('files').countDocuments();
-    return filesCount;
+    try {
+      const filesCollection = this.client.db().collection('files');
+      const filesCount = await filesCollection.countDocuments();
+      return filesCount;
+    } catch (error) {
+      console.error('Error counting files:', error);
+      throw error;
+    }
   }
 }
 
