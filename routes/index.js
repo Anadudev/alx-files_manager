@@ -17,6 +17,9 @@ router.get('/disconnect', AuthController.getDisconnect);
 // UsersController endpoint
 router.post('/users', UsersController.postNew);
 
-// // UserController endpoints
-// router.get('users/me', UserController.getMe);
+// UserController endpoints
+router.get('/users/me', UsersController.getMe);
+
+// Files controller
+router.post('/files', FilesController.postUpload);
 export default router;
