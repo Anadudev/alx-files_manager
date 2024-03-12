@@ -1,5 +1,5 @@
 import dbClient from '../utils/db';
-import redisClient from '../utils/redis';
+// import redisClient from '../utils/redis';
 
 const FilesController = {
   // /files should create a new file in DB and in disk:
@@ -8,8 +8,8 @@ const FilesController = {
       const { headers } = req;
       const { body } = req;
       const token = headers['x-token'];
-      const user = await redisClient.get(redisClient);
-      console.log(req);
+      const user = await dbClient.collection.findOne(token);
+      console.log(res);
       if (!body.name) {
         return res.status(400).json({ Error: 'Missing name' });
       }
