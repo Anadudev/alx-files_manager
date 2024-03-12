@@ -7,9 +7,6 @@ const AuthController = {
   getConnect: async (req, res) => {
     const authHeader = req.headers.authorization;
     if (authHeader) {
-      // Authorization header is present
-      console.log('Authorization header:', authHeader);
-
       // Parse the header to extract credentials if needed
       const encodedCredentials = authHeader.split(' ')[1];
       const decodedCredentials = Buffer.from(encodedCredentials, 'base64').toString('utf-8');
@@ -22,8 +19,6 @@ const AuthController = {
           return;
         }
         const token = `auth_${uuidv4()}`;
-        console.log('TOKEN IS: ', token)
-        console.log('USER ID IS: ', checkUser._id, checkUser);
         await redisClient.set(token, checkUser._id, 86400);
         res.status(200).json({ token: token.split('_')[1] });
       } catch (error) {
@@ -36,8 +31,6 @@ const AuthController = {
     const authHeaderToken = req.headers['x-token'];
     if (authHeaderToken) {
       // Authentication token is present
-      console.log('Authorization header:', authHeaderToken);
-
       try {
         const checkToken = redisClient.get(`auth_${authHeaderToken}`);
         if (!checkToken) {
