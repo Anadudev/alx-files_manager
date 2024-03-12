@@ -1,8 +1,7 @@
-import redisClient from '../utils/redis';
+import { redisClient } from '../utils/redis';
 import dbClient from '../utils/db';
 
-
-export default AppController = {
+const AppController = {
   getStatus: async (req, res) => {
     const redisStatus = await redisClient.isAlive();
     const dbStatus = await dbClient.isAlive();
@@ -14,3 +13,4 @@ export default AppController = {
     res.status(200).json({ users: userCount, files: fileCount });
   },
 };
+export default AppController;
