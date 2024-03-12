@@ -8,6 +8,7 @@ const FilesController = {
       const { headers } = req;
       const { body } = req;
       const token = headers['x-token'];
+      console.log(token);
       const user = await dbClient.collection.findOne(token);
       console.log(res);
       if (!body.name) {
