@@ -4,7 +4,6 @@ import dbClient from '../utils/db';
 const UsersController = {
   postNew: async (req, res) => {
     const { body } = req;
-    console.log(body);
     if (!body.email) {
       res.status(400).json({ error: 'Missing email' });
       return;
@@ -29,7 +28,7 @@ const UsersController = {
       console.log(`Some error occurred: ${error}`);
       res.status(500).json({ error: 'Internal server error' });
     }
-  }
+  },
 };
 
 export default UsersController;
