@@ -9,7 +9,7 @@ const FilesController = {
       const { body } = req;
       const token = headers['x-token'];
       const user = await redisClient.get(redisClient);
-      console.log(body);
+      console.log(req);
       if (!body.name) {
         return res.status(400).json({ Error: 'Missing name' });
       }
