@@ -5,19 +5,13 @@ import dbClient from '../utils/db';
 import redisClient from '../utils/redis';
 
 const FilesController = {
-  // /files should create a new file in DB and in disk:
   postUpload: async (req, res) => {
     try {
       const token = req.headers['x-token'];
-      // console.log(token);
       if (!token) {
         return res.status(401).json({ Error: 'Missing name' });
       }
       const user = await redisClient.get(`auth_${token}`);
-      // console.log(res);
-      if (!user) {
-        return res.status(401).json({ Error: 'Missing name' });
-      }
       const {
         name, type, parentId = 0, isPublic = false, data,
       } = req.body;
@@ -45,12 +39,10 @@ const FilesController = {
         if (!fs.existsSync(folderPath)) {
           fs.mkdirSync(folderPath, { recursive: true });
         }
-
         const fileUuid = uuidv4();
         localPath = path.join(folderPath, fileUuid);
         fs.writeFileSync(localPath, Buffer.from(data, 'base64'));
       }
-
       const newFile = {
         user,
         name,
