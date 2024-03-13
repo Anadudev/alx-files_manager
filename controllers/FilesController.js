@@ -2,7 +2,7 @@ import fs from 'fs';
 import { v4 as uuidv4 } from 'uuid';
 import path from 'path';
 import dbClient from '../utils/db';
-import redisClient from '../utils/redis';
+import { redisClient } from '../utils/redis';
 
 const FilesController = {
   postUpload: async (req, res) => {
