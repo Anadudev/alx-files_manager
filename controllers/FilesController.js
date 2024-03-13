@@ -25,7 +25,7 @@ const FilesController = {
         return res.status(400).json({ Error: 'Missing data' });
       }
       if (parentId !== 0) {
-        const parentFile = await dbClient.db.collection('files').findOne({ id: parentId });
+        const parentFile = await dbClient.client.db().collection('files').findOne({ id: parentId });
         if (!parentFile) {
           return res.status(400).json({ error: 'Parent not found' });
         }
@@ -51,7 +51,7 @@ const FilesController = {
         parentId,
         localPath: type !== 'folder' ? localPath : undefined,
       };
-      const result = await dbClient.db.collection('files').insertOne(newFile);
+      const result = await dbClient.client.db().collection('files').insertOne(newFile);
       return res.status(201).json({ newFile, id: result.insertedId });
     } catch (error) {
       console.log(`Error ${error}`);
